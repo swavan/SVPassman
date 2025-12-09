@@ -1,1 +1,2 @@
-# Pass-man
+# SvPassMan
+Application repository

@@ -1,0 +1,87 @@
+name: "linux-publish"
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-type:
+        description: Whether alpha, beta or final release
+        default: alpha
+        options:
+        - alpha
+        - beta
+        - final
+        type: choice
+      version:
+        description: version number of the release
+        default: "0.0.1"
+        type: string
+      release-info:
+        description: Add release information
+        default: "See the assets to download this version and install."
+        type: string
+
+# `tauri-action` can also upload app bundles to an existing GitHub release.
+# This workflow uses different actions to create and publish the release.
+# `tauri-action` will only build and upload the app bundles to the specified release.
+
+env:
+  CN_APPLICATION: "swavan/svpassman"
+
+jobs:
+
+  build:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - platform: "ubuntu-22.04"
+            args: ""
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Pull code
+        uses: actions/checkout@v4
+        with:
+          repository: swavan/passman
+          token: ${{ secrets.GIT_CRED }}
+          path: .
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+      
+      - name: Setup Rust
+        run: |
+          cargo fmt --check
+          rustup target add wasm32-unknown-unknown
+          cargo install trunk
+
+      - name: install dependencies (ubuntu only)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - name: private repo
+        run: |
+          git config --global credential.helper store
+          echo "https://oauth2:${{secrets.GIT_CRED}}@github.com" > ~/.git-credentials
+          git config --global url."https://oauth2:${{secrets.GIT_CRED}}@github.com".insteadOf ssh://git@github.com
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_CRED }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          tagName: svpassman-${{inputs.release-type}}-${{inputs.version}}
+          releaseName: SVPassman ${{inputs.release-type}}-${{inputs.version}}
+          releaseBody: ${{inputs.release-info}}
+          releaseDraft: true
+          prerelease: false
+          args: ${{ matrix.args }}

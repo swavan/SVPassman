@@ -1,0 +1,108 @@
+name: "mac-publish"
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-type:
+        description: Whether alpha, beta or final release
+        default: alpha
+        options:
+          - alpha
+          - beta
+          - final
+        type: choice
+      version:
+        description: version number of the release
+        default: "0.0.1"
+        type: string
+      release-info:
+        description: Add release information
+        default: "See the assets to download this version and install."
+        type: string
+
+# `tauri-action` can also upload app bundles to an existing GitHub release.
+# This workflow uses different actions to create and publish the release.
+# `tauri-action` will only build and upload the app bundles to the specified release.
+
+env:
+  CN_APPLICATION: "swavan/svpassman"
+
+jobs:
+
+  build:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - platform: "macos-latest" # for Arm based macs (M1 and above).
+            args: "--target aarch64-apple-darwin"
+          - platform: "macos-latest" # for Intel based macs.
+            args: "--target x86_64-apple-darwin"
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Pull code
+        uses: actions/checkout@master
+        with:
+          repository: swavan/passman
+          token: ${{ secrets.GIT_CRED }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+      - uses: Swatinem/rust-cache@v2
+      - name: Setup Rust
+        run: |
+          cargo fmt --check
+          rustup target add wasm32-unknown-unknown
+          cargo install trunk
+
+      - name: install dependencies (ubuntu only)
+        env:
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          APPLE_API_PRIVATE: ${{ secrets.APPLE_API_PRIVATE }}
+        run: |
+          echo $APPLE_CERTIFICATE | base64 --decode > certificate.p12
+          echo $APPLE_API_PRIVATE | base64 --decode > note_private_key.p8
+          security create-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+          security import certificate.p12 -k build.keychain -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" build.keychain
+          security find-identity -v -p codesigning build.keychain
+          echo "APPLE_API_KEY_PATH=$PWD/note_private_key.p8" >> $GITHUB_ENV
+
+      - name: private repo
+        run: |
+          git config --global credential.helper store
+          echo "https://swavan:${{secrets.GIT_CRED}}@github.com" > ~/.git-credentials
+          git config --global url."https://swavan:${{secrets.GIT_CRED}}@github.com".insteadOf ssh://git@github.com
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_CRED }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
+          APPLE_API_KEY: ${{ secrets.APPLE_API_KEY }}
+          APPLE_API_KEY_PATH: ${{ env.APPLE_API_KEY_PATH }}
+          TARGET: ${{ matrix.args }}
+        with:
+          tagName: svpassman-${{inputs.release-type}}-${{inputs.version}} # the action automatically replaces \_\_VERSION\_\_ with the app version.
+          releaseName: SVPassman ${{inputs.release-type}}-${{inputs.version}}
+          releaseBody: ${{inputs.release-info}}
+          releaseDraft: true
+          prerelease: false
+          args: ${{ matrix.args }}
