@@ -39,18 +39,15 @@ jobs:
 
     runs-on: ${{ matrix.platform }}
     steps:
-      - uses: oleksiyrudenko/gha-git-credentials@v2.1.1
-        with:
-          global: true
-          name: ${{ vars.GIT_NAME }}
-          email: ${{ vars.GIT_EMAIL }}
-          actor: ${{ vars.GIT_ACTOR }}
-          token: ${{ secrets.GIT_CRED }}
 
       - uses: actions/checkout@v4
         with:
           repository: swavan/passman
           token: ${{ secrets.GIT_CRED }}
+    
+      - name: Configure git for GITHUB_TOKEN
+        run: git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
+
 
       - name: setup node
         uses: actions/setup-node@v4
