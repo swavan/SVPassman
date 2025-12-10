@@ -87,6 +87,7 @@ jobs:
       - name: build and publish
         uses: tauri-apps/tauri-action@v0
         env:
+          CARGO_NET_GIT_FETCH_WITH_CLI: true
           GITHUB_TOKEN: ${{ secrets.GIT_CRED }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
