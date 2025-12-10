@@ -43,11 +43,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: swavan/passman
-          token: ${{ secrets.GIT_CRED }}
+          token: ${{ secrets.PAT_TOKEN }}
+          fetch-depth: 0
     
-      - name: Configure git for GITHUB_TOKEN
-        run: git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
-
+      - name: Configure git for PAT_TOKEN
+        run: git config --global url."https://${{ secrets.PAT_TOKEN }}@github.com/".insteadOf "https://github.com/"
 
       - name: setup node
         uses: actions/setup-node@v4
