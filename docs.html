@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation — SVPassman</title>
+  <meta name="description" content="SVPassman documentation. Learn how to set up, use, and get the most out of your local-first password manager." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23c8a041'/><path d='M16 6a6 6 0 0 0-6 6v2H8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-2v-2a6 6 0 0 0-6-6zm0 2a4 4 0 0 1 4 4v2h-8v-2a4 4 0 0 1 4-4zm0 8a2 2 0 1 1 0 4 2 2 0 0 1 0-4z' fill='%23080b12'/></svg>" />
+</head>
+<body>
+
+<!-- ══ HEADER ═══════════════════════════════════════════════════ -->
+<header class="site-header" role="banner">
+  <div class="container header-inner">
+    <a href="index.html" class="logo" aria-label="SVPassman home">
+      <div class="logo-mark" aria-hidden="true"><img src="assets/icon.png" alt="SVPassman icon"/></div>
+      SVPassman
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="docs.html" class="nav-link active">Docs</a>
+      <a href="privacy.html" class="nav-link">Privacy</a>
+      <a href="terms.html" class="nav-link">Terms</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>
+      </button>
+    </div>
+
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+  <a href="index.html" class="nav-link">Home</a>
+  <a href="docs.html" class="nav-link active">Docs</a>
+  <a href="privacy.html" class="nav-link">Privacy</a>
+  <a href="terms.html" class="nav-link">Terms</a>
+  <div class="header-actions" style="margin-top:12px;">
+    <button class="theme-toggle" aria-label="Toggle theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ══ DOCS LAYOUT ═══════════════════════════════════════════════ -->
+<div style="padding-top:var(--header-h)">
+  <div class="docs-layout">
+
+    <!-- Sidebar -->
+    <aside class="docs-sidebar" aria-label="Documentation navigation">
+      <button class="docs-sidebar-toggle" aria-expanded="false" aria-controls="sidebar-nav">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        Navigation
+      </button>
+
+      <nav class="docs-sidebar-nav" id="sidebar-nav" aria-label="Documentation sections">
+        <div class="sidebar-section">
+          <p class="sidebar-section-title">Getting Started</p>
+          <a href="#intro" class="sidebar-link active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/></svg>
+            Introduction
+          </a>
+          <a href="#installation" class="sidebar-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Installation
+          </a>
+          <a href="#first-launch" class="sidebar-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            First Launch
+          </a>
+        </div>
+
+        <div class="sidebar-section">
+          <p class="sidebar-section-title">Security</p>
+          <a href="#master-key" class="sidebar-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Master Key
+          </a>
+          <a href="#biometric" class="sidebar-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Biometric Unlock
+          </a>
+        </div>
+
+        <div class="sidebar-section">
+          <p class="sidebar-section-title">Vault</p>
+          <a href="#passwords" class="sidebar-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+            Passwords
+          </a>
+          <a href="#credit-cards" class="sidebar-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            Credit Cards
+          </a>
+          <a href="#ssh-keys" class="sidebar-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+            SSH Keys
+          </a>
+          <a href="#totp" class="sidebar-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            TOTP / 2FA
+          </a>
+          <a href="#secrets" class="sidebar-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Secrets
+          </a>
+        </div>
+
+        <div class="sidebar-section">
+          <p class="sidebar-section-title">Data</p>
+          <a href="#import-export" class="sidebar-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v14m0 0-4-4m4 4 4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/></svg>
+            Import &amp; Export
+          </a>
+          <a href="#settings" class="sidebar-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+            Settings
+          </a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="docs-content" id="doc-main">
+
+      <!-- ── Introduction ──────────────────────────────────── -->
+      <div class="doc-section" id="intro">
+        <h1>SVPassman Documentation</h1>
+        <p class="doc-meta">Version 0.1.1 &nbsp;·&nbsp; Last updated March 2025</p>
+
+        <p>Welcome to the SVPassman documentation. SVPassman is a <strong>local-first, zero-knowledge password manager</strong> built with Rust and Tauri. This guide covers everything you need to know to install, configure, and use SVPassman effectively.</p>
+
+        <div class="callout callout-info">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span><strong>Quick note:</strong> SVPassman stores all data locally. Nothing is sent to external servers (unless you explicitly configure remote sync). Your master password is never transmitted anywhere.</span>
+        </div>
+
+        <h2>What is SVPassman?</h2>
+        <p>SVPassman is a desktop application that lets you securely store and manage:</p>
+        <ul>
+          <li><strong>Passwords</strong> — website logins with username, password, and URL</li>
+          <li><strong>Credit Cards</strong> — card numbers, expiry dates, and CVV (encrypted)</li>
+          <li><strong>SSH Keys</strong> — private keys for server access</li>
+          <li><strong>TOTP / 2FA</strong> — time-based one-time passwords for two-factor authentication</li>
+          <li><strong>Secrets</strong> — arbitrary text or key-value pairs</li>
+        </ul>
+
+        <p>All data is encrypted with AES-256-GCM using a key derived from your master password via Argon2id.</p>
+      </div>
+
+      <!-- ── Installation ──────────────────────────────────── -->
+      <div class="doc-section" id="installation">
+        <h2>Installation</h2>
+        <p>SVPassman is available for macOS, Windows, and Linux. Download the appropriate installer from the <a href="https://github.com/swavan/SVPassman/releases" target="_blank" rel="noopener">releases page</a>.</p>
+
+        <h3>macOS</h3>
+        <ol>
+          <li>Download the <code>.dmg</code> file from the <a href="https://github.com/swavan/SVPassman/releases" target="_blank" rel="noopener">releases page</a></li>
+          <li>Open the DMG and drag SVPassman to your Applications folder</li>
+          <li>On first launch, right-click the app and select "Open" to bypass Gatekeeper</li>
+          <li>The app is notarized by Apple — you only need to do this once</li>
+        </ol>
+
+        <h3>Windows</h3>
+        <ol>
+          <li>Download the <code>.msi</code> installer from the <a href="https://github.com/swavan/SVPassman/releases" target="_blank" rel="noopener">releases page</a></li>
+          <li>Run the installer — Windows may show a SmartScreen warning for new publishers</li>
+          <li>Click "More info" → "Run anyway" to proceed</li>
+          <li>SVPassman will be available in your Start Menu</li>
+        </ol>
+
+        <h3>Linux</h3>
+        <ol>
+          <li>Download the <code>.AppImage</code> or <code>.deb</code> package</li>
+          <li>For AppImage: <code>chmod +x SVPassman.AppImage && ./SVPassman.AppImage</code></li>
+          <li>For deb: <code>sudo dpkg -i svpassman_0.1.1_amd64.deb</code></li>
+        </ol>
+
+        <div class="callout callout-warning">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span><strong>System requirement:</strong> SVPassman requires a 64-bit operating system. macOS 11+, Windows 10+, or a modern Linux distribution with WebView2 / WebKitGTK support.</span>
+        </div>
+      </div>
+
+      <!-- ── First Launch ──────────────────────────────────── -->
+      <div class="doc-section" id="first-launch">
+        <h2>First Launch</h2>
+        <p>When you launch SVPassman for the first time, you'll be prompted to set up your vault.</p>
+
+        <h3>Creating Your Profile</h3>
+        <ol>
+          <li>On the welcome screen, click <strong>Create New Vault</strong></li>
+          <li>Choose a username for your local profile</li>
+          <li>Set your <strong>master key</strong> — this is the password that protects your entire vault</li>
+          <li>Confirm the master key</li>
+          <li>Click <strong>Create Vault</strong></li>
+        </ol>
+
+        <p>Your vault is now created and encrypted. You'll be taken to the main dashboard.</p>
+
+        <h3>Switching Profiles</h3>
+        <p>SVPassman supports multiple local profiles. From the unlock screen, use the <strong>Switch Profile</strong> button to manage multiple vaults on the same machine — useful for separating personal and work credentials.</p>
+      </div>
+
+      <!-- ── Master Key ────────────────────────────────────── -->
+      <div class="doc-section" id="master-key">
+        <h2>Master Key</h2>
+        <p>Your master key is the single password that protects your entire vault. It is never stored anywhere — not on your device, not on any server. Only you know it.</p>
+
+        <div class="callout callout-warning">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span><strong>Critical:</strong> If you forget your master key, your vault is permanently inaccessible. There is no recovery mechanism. Write it down and store it securely.</span>
+        </div>
+
+        <h3>Choosing a Strong Master Key</h3>
+        <ul>
+          <li>Use at least 16 characters</li>
+          <li>Mix upper and lowercase letters, numbers, and symbols</li>
+          <li>Consider a passphrase — a string of random words is both memorable and strong</li>
+          <li>Never reuse a password you use elsewhere</li>
+        </ul>
+
+        <h3>How Keys Are Derived</h3>
+        <p>SVPassman uses <strong>Argon2id</strong> to derive the encryption key from your master password. Argon2id is intentionally slow and memory-intensive, making brute-force attacks computationally expensive.</p>
+
+        <pre><code>master_password → Argon2id (time=2, mem=64MB) → encryption_key
+encryption_key  → AES-256-GCM → encrypted vault</code></pre>
+
+        <h3>Changing Your Master Key</h3>
+        <ol>
+          <li>Navigate to <strong>Settings → Change Master Key</strong></li>
+          <li>Enter your current master key</li>
+          <li>Enter and confirm your new master key</li>
+          <li>Click <strong>Save Changes</strong></li>
+          <li>You will be signed out and need to unlock with the new key</li>
+        </ol>
+      </div>
+
+      <!-- ── Biometric ─────────────────────────────────────── -->
+      <div class="doc-section" id="biometric">
+        <h2>Biometric Unlock</h2>
+        <p>SVPassman supports biometric unlock on supported platforms — Touch ID on macOS and Windows Hello on Windows.</p>
+
+        <h3>How It Works</h3>
+        <p>When you enable biometric unlock, SVPassman stores an encrypted version of your session credentials in the system's secure enclave (macOS Keychain / Windows Credential Store). When you authenticate with your biometric, the OS releases these credentials to SVPassman — your actual master key is never exposed to the biometric system.</p>
+
+        <h3>Enabling Biometric Unlock</h3>
+        <ol>
+          <li>Ensure your device has enrolled biometrics (Touch ID / Windows Hello)</li>
+          <li>Navigate to <strong>Settings → Biometric Unlock</strong></li>
+          <li>Toggle <strong>Enable Biometric Unlock</strong></li>
+          <li>Authenticate with your biometric when prompted</li>
+          <li>Future unlocks will offer your biometric as an option alongside your master key</li>
+        </ol>
+
+        <h3>Supported Platforms</h3>
+        <ul>
+          <li><strong>macOS</strong> — Touch ID (MacBook Pro, iMac, Magic Keyboard with Touch ID)</li>
+          <li><strong>Windows</strong> — Windows Hello (fingerprint, face recognition, PIN)</li>
+          <li><strong>Linux</strong> — Not currently supported</li>
+        </ul>
+      </div>
+
+      <!-- ── Passwords ─────────────────────────────────────── -->
+      <div class="doc-section" id="passwords">
+        <h2>Passwords</h2>
+        <p>The most common vault entry type. Store website logins with username, password, URL, and optional notes.</p>
+
+        <h3>Adding a Password</h3>
+        <ol>
+          <li>From the vault view, click the <strong>+</strong> button in the sidebar</li>
+          <li>Select <strong>Password</strong> from the dropdown</li>
+          <li>Fill in the title, username, password, and URL</li>
+          <li>Optionally add notes</li>
+          <li>Click <strong>Save</strong></li>
+        </ol>
+
+        <h3>Vault Health</h3>
+        <p>The <strong>Health</strong> section checks your passwords for:</p>
+        <ul>
+          <li>Weak passwords (short, simple, or commonly used)</li>
+          <li>Reused passwords across multiple sites</li>
+          <li>Passwords found in known data breaches (via HaveIBeenPwned k-Anonymity API)</li>
+        </ul>
+
+        <div class="callout callout-info">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>Breach checking uses the k-Anonymity model — only a 5-character prefix of the SHA-1 hash of your password is sent to the API. The full password never leaves your device.</span>
+        </div>
+      </div>
+
+      <!-- ── Credit Cards ──────────────────────────────────── -->
+      <div class="doc-section" id="credit-cards">
+        <h2>Credit Cards</h2>
+        <p>Store payment card details securely. Card numbers, CVV codes, and expiry dates are encrypted at rest with the same AES-256-GCM encryption as all other vault entries.</p>
+
+        <h3>Adding a Credit Card</h3>
+        <ol>
+          <li>Click <strong>+</strong> and select <strong>Credit Card</strong></li>
+          <li>Enter the cardholder name, card number, expiry date, and CVV</li>
+          <li>Add a label to identify the card (e.g., "Chase Sapphire")</li>
+          <li>Click <strong>Save</strong></li>
+        </ol>
+
+        <p>Use the copy buttons next to each field to quickly copy card details without displaying them in plain text on screen.</p>
+      </div>
+
+      <!-- ── SSH Keys ──────────────────────────────────────── -->
+      <div class="doc-section" id="ssh-keys">
+        <h2>SSH Keys</h2>
+        <p>Store SSH private keys for server access. SVPassman supports generating, storing, and copying SSH key pairs.</p>
+
+        <h3>Storing an SSH Key</h3>
+        <ol>
+          <li>Click <strong>+</strong> and select <strong>SSH Key</strong></li>
+          <li>Paste your private key or generate a new ED25519 key pair within the app</li>
+          <li>Optionally add the corresponding public key and a hostname</li>
+          <li>Click <strong>Save</strong></li>
+        </ol>
+
+        <h3>Supported Key Types</h3>
+        <ul>
+          <li>ED25519 (recommended)</li>
+          <li>RSA (2048, 4096 bit)</li>
+          <li>ECDSA</li>
+        </ul>
+      </div>
+
+      <!-- ── TOTP ──────────────────────────────────────────── -->
+      <div class="doc-section" id="totp">
+        <h2>TOTP / 2FA</h2>
+        <p>Store your two-factor authentication secrets and generate time-based one-time passwords directly within SVPassman — eliminating the need for a separate authenticator app.</p>
+
+        <h3>Adding a TOTP Entry</h3>
+        <ol>
+          <li>Click <strong>+</strong> and select <strong>2FA / TOTP</strong></li>
+          <li>Enter the TOTP secret key (usually shown as a QR code when setting up 2FA on a site — copy the text version)</li>
+          <li>Add a label (e.g., "GitHub", "Google Account")</li>
+          <li>Click <strong>Save</strong></li>
+        </ol>
+
+        <p>SVPassman will display a live 6-digit code that refreshes every 30 seconds, along with a countdown timer.</p>
+
+        <div class="callout callout-warning">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span><strong>Important:</strong> Storing your 2FA secrets alongside your passwords in the same vault reduces the security benefit of two-factor authentication. For maximum security, use a separate physical device for TOTP codes. For convenience, SVPassman is a reasonable tradeoff.</span>
+        </div>
+      </div>
+
+      <!-- ── Secrets ───────────────────────────────────────── -->
+      <div class="doc-section" id="secrets">
+        <h2>Secrets</h2>
+        <p>Secrets are arbitrary encrypted text entries — useful for storing API keys, environment variables, license keys, recovery codes, and any other sensitive text that doesn't fit the other categories.</p>
+
+        <h3>Adding a Secret</h3>
+        <ol>
+          <li>Click <strong>+</strong> and select <strong>Secret</strong></li>
+          <li>Give it a descriptive title</li>
+          <li>Enter the secret value in the text area</li>
+          <li>Click <strong>Save</strong></li>
+        </ol>
+
+        <p>Secrets can store multi-line text, making them suitable for environment files, private notes, or any other sensitive content.</p>
+      </div>
+
+      <!-- ── Import & Export ───────────────────────────────── -->
+      <div class="doc-section" id="import-export">
+        <h2>Import &amp; Export</h2>
+        <p>SVPassman supports importing from other password managers and exporting your data in portable formats. Access both via <strong>Settings → Transfer</strong>, which opens a panel with Import and Export options.</p>
+
+        <h3>Importing</h3>
+        <p>Select a source from the dropdown and click <strong>Select file to upload</strong>. Supported import formats:</p>
+        <ul>
+          <li><strong>SVPassman CSV</strong> — our native export format, with base64-encoded field values</li>
+          <li><strong>LastPass CSV</strong> — export your vault from LastPass and import directly</li>
+        </ul>
+
+        <h3>Exporting</h3>
+        <p>Click <strong>Export</strong> in the Transfer panel. Available export formats:</p>
+        <ul>
+          <li><strong>SVPassman CSV</strong> — portable spreadsheet, reimportable into SVPassman on another device</li>
+          <li><strong>JSON</strong> — structured JSON file of your vault contents</li>
+          <li><strong>Encrypted backup</strong> — your vault encrypted with a passphrase using XChaCha20-Poly1305 and Argon2id key derivation; the safest option for long-term storage</li>
+        </ul>
+
+        <div class="callout callout-warning">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span><strong>Warning:</strong> CSV and JSON exports contain your vault data in plain text. Handle these files with care, store them in an encrypted location, and delete them once no longer needed. Use the Encrypted backup format for safe long-term storage.</span>
+        </div>
+      </div>
+
+      <!-- ── Settings ──────────────────────────────────────── -->
+      <div class="doc-section" id="settings">
+        <h2>Settings</h2>
+        <p>Access settings from the gear icon in the sidebar. Settings are organized into the following sections:</p>
+
+        <h3>Profile</h3>
+        <ul>
+          <li><strong>Username</strong> — change your display name</li>
+          <li><strong>Profile picture</strong> — set a local avatar</li>
+          <li><strong>Remote sync</strong> — configure an optional remote server for encrypted vault sync</li>
+        </ul>
+
+        <h3>Security</h3>
+        <ul>
+          <li><strong>Change Master Key</strong> — update your master password</li>
+          <li><strong>Biometric Unlock</strong> — enable/disable Touch ID or Windows Hello</li>
+          <li><strong>Auto-lock</strong> — set an inactivity timeout after which the vault locks automatically</li>
+          <li><strong>Clipboard clear</strong> — auto-clear clipboard after copying sensitive values</li>
+        </ul>
+
+        <h3>Appearance</h3>
+        <ul>
+          <li><strong>Theme</strong> — light or dark mode</li>
+          <li><strong>Language</strong> — interface language (English supported)</li>
+        </ul>
+
+        <h3>Transfer</h3>
+        <p>Opens a panel with Import and Export cards. Supports importing from SVPassman CSV and LastPass CSV. Exports to CSV, JSON, or an encrypted backup.</p>
+
+        <h3>About</h3>
+        <p>Displays the current version, build information, and license details.</p>
+
+        <div class="doc-nav">
+          <a href="#master-key" class="doc-nav-btn">
+            <span class="doc-nav-label">← Previous</span>
+            <span class="doc-nav-title">Master Key</span>
+          </a>
+          <a href="index.html#download" class="doc-nav-btn doc-nav-next">
+            <span class="doc-nav-label">Next →</span>
+            <span class="doc-nav-title">Download SVPassman</span>
+          </a>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ══ FOOTER ═══════════════════════════════════════════════════ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo" aria-label="SVPassman home">
+          <div class="logo-mark" aria-hidden="true"><img src="assets/icon.png" alt="SVPassman icon"/></div>
+          SVPassman
+        </a>
+        <p class="footer-tagline">A local-first, zero-knowledge password manager built with Rust and Tauri.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Product</p>
+        <nav class="footer-links">
+          <a href="index.html#download" class="footer-link">Download</a>
+          <a href="docs.html" class="footer-link">Documentation</a>
+        </nav>
+      </div>
+      <div>
+        <p class="footer-col-title">Legal</p>
+        <nav class="footer-links">
+          <a href="privacy.html" class="footer-link">Privacy Policy</a>
+          <a href="terms.html" class="footer-link">Terms &amp; Conditions</a>
+        </nav>
+      </div>
+      </div>
+    <div class="footer-bottom">
+      <span>© 2025 SVPassman · SwaVan. All rights reserved.</span>
+      <span>Built with Rust 🦀 &amp; Tauri</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

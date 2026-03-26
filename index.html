@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SVPassman — Local-First Password Manager</title>
+  <meta name="description" content="SVPassman is a zero-knowledge, local-first password manager built with Rust and Tauri. Your secrets never leave your machine." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23c8a041'/><path d='M16 6a6 6 0 0 0-6 6v2H8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-2v-2a6 6 0 0 0-6-6zm0 2a4 4 0 0 1 4 4v2h-8v-2a4 4 0 0 1 4-4zm0 8a2 2 0 1 1 0 4 2 2 0 0 1 0-4z' fill='%23080b12'/></svg>" />
+</head>
+<body>
+
+<!-- ══ HEADER ══════════════════════════════════════════════════ -->
+<header class="site-header" role="banner">
+  <div class="container header-inner">
+    <a href="index.html" class="logo" aria-label="SVPassman home">
+      <div class="logo-mark" aria-hidden="true"><img src="assets/icon.png" alt="SVPassman icon"/></div>
+      SVPassman
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="docs.html" class="nav-link">Docs</a>
+      <a href="privacy.html" class="nav-link">Privacy</a>
+      <a href="terms.html" class="nav-link">Terms</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>
+      </button>
+    </div>
+
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<nav class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
+  <a href="index.html" class="nav-link">Home</a>
+  <a href="docs.html" class="nav-link">Docs</a>
+  <a href="privacy.html" class="nav-link">Privacy</a>
+  <a href="terms.html" class="nav-link">Terms</a>
+  <div class="header-actions" style="margin-top:12px;">
+    <button class="theme-toggle" aria-label="Toggle theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ══ HERO ════════════════════════════════════════════════════ -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-glow" aria-hidden="true"></div>
+
+  <div class="hero-lock" aria-hidden="true">
+    <div class="lock-ring lock-ring-1"></div>
+    <div class="lock-ring lock-ring-2"></div>
+    <div class="lock-ring lock-ring-3"></div>
+    <img src="assets/icon.png" alt="" style="width:100%;height:100%;object-fit:contain;border-radius:20px"/>
+  </div>
+
+  <div class="hero-badge" aria-label="Version info">
+    <span class="hero-badge-dot" aria-hidden="true"></span>
+    <span class="mono">v0.1.1 — Now available</span>
+    <span aria-hidden="true">→</span>
+  </div>
+
+  <h1 class="display-xl">
+    Your Vault.<br/><em>Zero&nbsp;Compromise.</em>
+  </h1>
+
+  <p class="hero-sub">
+    SVPassman is a <strong>local-first</strong> password manager built in Rust.
+    Your secrets are encrypted on your machine — no cloud, no servers, no trust required.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#download" class="btn btn-primary btn-lg">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Free
+    </a>
+    <a href="docs.html" class="btn btn-outline btn-lg">
+      Read the Docs
+    </a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="text-center">
+      <span class="hero-stat-value mono">256</span>
+      <span class="hero-stat-label">bit AES encryption</span>
+    </div>
+    <div style="width:1px;height:40px;background:var(--border)" aria-hidden="true"></div>
+    <div class="text-center">
+      <span class="hero-stat-value mono">0</span>
+      <span class="hero-stat-label">Cloud servers used</span>
+    </div>
+    <div style="width:1px;height:40px;background:var(--border)" aria-hidden="true"></div>
+    <div class="text-center">
+      <span class="hero-stat-value mono">5</span>
+      <span class="hero-stat-label">Vault secret types</span>
+    </div>
+    <div style="width:1px;height:40px;background:var(--border)" aria-hidden="true"></div>
+    <div class="text-center">
+      <span class="hero-stat-value mono">3</span>
+      <span class="hero-stat-label">Platforms supported</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TRUST BAR ════════════════════════════════════════════════ -->
+<div class="trust-bar" aria-hidden="true">
+  <div class="trust-bar-inner">
+    <!-- duplicated for seamless loop -->
+    <span class="trust-item"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5-4 4a.5.5 0 0 1-.707 0l-2-2a.5.5 0 1 1 .707-.707L7 10.293l3.646-3.647a.5.5 0 0 1 .707.707z"/></svg>Zero-knowledge architecture</span>
+    <span class="trust-item"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5-4 4a.5.5 0 0 1-.707 0l-2-2a.5.5 0 1 1 .707-.707L7 10.293l3.646-3.647a.5.5 0 0 1 .707.707z"/></svg>Built with Rust</span>
+    <span class="trust-item"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5-4 4a.5.5 0 0 1-.707 0l-2-2a.5.5 0 1 1 .707-.707L7 10.293l3.646-3.647a.5.5 0 0 1 .707.707z"/></svg>Powered by Tauri</span>
+    <span class="trust-item"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5-4 4a.5.5 0 0 1-.707 0l-2-2a.5.5 0 1 1 .707-.707L7 10.293l3.646-3.647a.5.5 0 0 1 .707.707z"/></svg>macOS · Windows · Linux</span>
+    <span class="trust-item"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5-4 4a.5.5 0 0 1-.707 0l-2-2a.5.5 0 1 1 .707-.707L7 10.293l3.646-3.647a.5.5 0 0 1 .707.707z"/></svg>Free to use</span>
+    <span class="trust-item"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5-4 4a.5.5 0 0 1-.707 0l-2-2a.5.5 0 1 1 .707-.707L7 10.293l3.646-3.647a.5.5 0 0 1 .707.707z"/></svg>Biometric unlock</span>
+    <span class="trust-item"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5-4 4a.5.5 0 0 1-.707 0l-2-2a.5.5 0 1 1 .707-.707L7 10.293l3.646-3.647a.5.5 0 0 1 .707.707z"/></svg>TOTP / 2FA built-in</span>
+    <!-- duplicate -->
+    <span class="trust-item"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5-4 4a.5.5 0 0 1-.707 0l-2-2a.5.5 0 1 1 .707-.707L7 10.293l3.646-3.647a.5.5 0 0 1 .707.707z"/></svg>Zero-knowledge architecture</span>
+    <span class="trust-item"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5-4 4a.5.5 0 0 1-.707 0l-2-2a.5.5 0 1 1 .707-.707L7 10.293l3.646-3.647a.5.5 0 0 1 .707.707z"/></svg>Built with Rust</span>
+    <span class="trust-item"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5-4 4a.5.5 0 0 1-.707 0l-2-2a.5.5 0 1 1 .707-.707L7 10.293l3.646-3.647a.5.5 0 0 1 .707.707z"/></svg>Powered by Tauri</span>
+    <span class="trust-item"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5-4 4a.5.5 0 0 1-.707 0l-2-2a.5.5 0 1 1 .707-.707L7 10.293l3.646-3.647a.5.5 0 0 1 .707.707z"/></svg>macOS · Windows · Linux</span>
+    <span class="trust-item"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5-4 4a.5.5 0 0 1-.707 0l-2-2a.5.5 0 1 1 .707-.707L7 10.293l3.646-3.647a.5.5 0 0 1 .707.707z"/></svg>Free to use</span>
+    <span class="trust-item"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5-4 4a.5.5 0 0 1-.707 0l-2-2a.5.5 0 1 1 .707-.707L7 10.293l3.646-3.647a.5.5 0 0 1 .707.707z"/></svg>Biometric unlock</span>
+    <span class="trust-item"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5-4 4a.5.5 0 0 1-.707 0l-2-2a.5.5 0 1 1 .707-.707L7 10.293l3.646-3.647a.5.5 0 0 1 .707.707z"/></svg>TOTP / 2FA built-in</span>
+  </div>
+</div>
+
+<!-- ══ FEATURES ═════════════════════════════════════════════════ -->
+<section class="section" aria-labelledby="features-title">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Why SVPassman</div>
+      <h2 class="display-md section-title" id="features-title">Built for people who care<br/>about where their data lives.</h2>
+      <p class="section-desc">A password manager that genuinely respects your privacy — because it never touches your data in the first place.</p>
+    </div>
+
+    <div class="features-grid" role="list">
+
+      <div class="feature-card reveal" role="listitem">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+        </div>
+        <h3>100% Local Storage</h3>
+        <p>Everything stays on your device. Your vault is an encrypted SQLite database — no sync servers, no external services, no attack surface beyond your own machine.</p>
+      </div>
+
+      <div class="feature-card reveal" role="listitem">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3>Rust-Powered Core</h3>
+        <p>The backend is written in Rust — memory-safe, blazing fast, and free from the class of vulnerabilities that plague C/C++ applications. No GC pauses, no buffer overflows.</p>
+      </div>
+
+      <div class="feature-card reveal" role="listitem">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>AES-256 Encryption</h3>
+        <p>Your master key never leaves memory unencrypted. The vault is encrypted with AES-256-GCM. Even if your device is stolen, your secrets stay safe.</p>
+      </div>
+
+      <div class="feature-card reveal" role="listitem">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+        </div>
+        <h3>5 Vault Types</h3>
+        <p>Store passwords, credit cards, SSH keys, TOTP/2FA codes, and arbitrary secrets — all in one place, all encrypted at rest with the same master key.</p>
+      </div>
+
+      <div class="feature-card reveal" role="listitem">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-14a4 4 0 1 0 4 4 4 4 0 0 0-4-4zm0 6a2 2 0 1 1 2-2 2 2 0 0 1-2 2zm2.236-8.995a6.011 6.011 0 0 1 5.76 5.76"/></svg>
+        </div>
+        <h3>Biometric Unlock</h3>
+        <p>Unlock your vault with Touch ID on macOS or Windows Hello — without ever exposing your master key to a fingerprint reader or any third-party service.</p>
+      </div>
+
+      <div class="feature-card reveal" role="listitem">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <h3>Import &amp; Export</h3>
+        <p>Migrate from other password managers with CSV import support. Export your data anytime — your vault is yours to take wherever you go.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ VAULT TYPES ══════════════════════════════════════════════ -->
+<section class="section" style="padding-top:0" aria-labelledby="vault-title">
+  <div class="container">
+    <div class="reveal text-center">
+      <div class="section-label" style="justify-content:center">What you can store</div>
+      <h2 class="display-md section-title" id="vault-title" style="margin-bottom:8px">One vault. Every secret.</h2>
+      <p class="section-desc" style="margin:0 auto">From everyday logins to SSH keys and 2FA codes — SVPassman handles it all in a unified, encrypted vault.</p>
+    </div>
+
+    <div class="vault-types" role="list">
+      <div class="vault-type reveal" role="listitem">
+        <div class="vault-type-icon" style="background:rgba(139,92,246,0.15);color:#8b5cf6" aria-hidden="true">🔑</div>
+        <span class="vault-type-name">Passwords</span>
+      </div>
+      <div class="vault-type reveal" role="listitem">
+        <div class="vault-type-icon" style="background:rgba(245,158,11,0.15);color:#f59e0b" aria-hidden="true">💳</div>
+        <span class="vault-type-name">Credit Cards</span>
+      </div>
+      <div class="vault-type reveal" role="listitem">
+        <div class="vault-type-icon" style="background:rgba(6,182,212,0.15);color:#06b6d4" aria-hidden="true">🖥</div>
+        <span class="vault-type-name">SSH Keys</span>
+      </div>
+      <div class="vault-type reveal" role="listitem">
+        <div class="vault-type-icon" style="background:rgba(20,184,166,0.15);color:#14b8a6" aria-hidden="true">🔐</div>
+        <span class="vault-type-name">TOTP / 2FA</span>
+      </div>
+      <div class="vault-type reveal" role="listitem">
+        <div class="vault-type-icon" style="background:rgba(239,68,68,0.15);color:#ef4444" aria-hidden="true">🗝</div>
+        <span class="vault-type-name">Secrets</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECURITY DETAIL ══════════════════════════════════════════ -->
+<section class="section" aria-labelledby="security-title" style="background:var(--bg-alt);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Security Architecture</div>
+      <h2 class="display-md section-title" id="security-title">Designed to be unbreakable,<br/>even by us.</h2>
+    </div>
+
+    <div class="security-grid">
+      <div class="security-visual reveal" aria-label="Security configuration overview" role="img">
+        <div class="code-line"><span class="code-ln">1</span><span class="code-comment">// vault.config.toml</span></div>
+        <div class="code-line"><span class="code-ln">2</span></div>
+        <div class="code-line"><span class="code-ln">3</span><span class="code-key">encryption</span><span> = </span><span class="code-val">"AES-256-GCM"</span></div>
+        <div class="code-line"><span class="code-ln">4</span><span class="code-key">kdf</span><span>         = </span><span class="code-val">"Argon2id"</span></div>
+        <div class="code-line"><span class="code-ln">5</span><span class="code-key">storage</span><span>     = </span><span class="code-val">"local-only"</span></div>
+        <div class="code-line"><span class="code-ln">6</span><span class="code-key">cloud_sync</span><span>  = </span><span class="code-val">false</span></div>
+        <div class="code-line"><span class="code-ln">7</span><span class="code-key">telemetry</span><span>   = </span><span class="code-val">false</span></div>
+        <div class="code-line"><span class="code-ln">8</span><span class="code-key">analytics</span><span>   = </span><span class="code-val">false</span></div>
+        <div class="code-line"><span class="code-ln">9</span></div>
+        <div class="code-line"><span class="code-ln">10</span><span class="code-comment">// master key never leaves process memory</span></div>
+        <div class="code-line"><span class="code-ln">11</span><span class="code-key">key_derivation</span><span> = </span><span class="code-val">"zeroize-on-drop"</span></div>
+      </div>
+
+      <div class="security-list reveal">
+        <div class="security-item">
+          <div class="security-item-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <h4>Argon2id Key Derivation</h4>
+            <p>Your master password is hashed with Argon2id — the winner of the Password Hashing Competition — before it ever touches your vault. Brute-force resistant by design.</p>
+          </div>
+        </div>
+        <div class="security-item">
+          <div class="security-item-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div>
+            <h4>No Telemetry, Ever</h4>
+            <p>SVPassman contains zero analytics, crash reporting, or usage tracking. What you do inside your vault is your business — not ours, not anyone else's.</p>
+          </div>
+        </div>
+        <div class="security-item">
+          <div class="security-item-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div>
+            <h4>Memory Safety via Rust</h4>
+            <p>Rust's ownership model eliminates entire categories of memory safety bugs at compile time. Your secrets are zeroed from memory the moment they're no longer needed.</p>
+          </div>
+        </div>
+        <div class="security-item">
+          <div class="security-item-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div>
+            <h4>Content Security Policy</h4>
+            <p>The Tauri application enforces a strict CSP that blocks XSS, data exfiltration, and unauthorized network requests — even if a dependency were somehow compromised.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DOWNLOAD ══════════════════════════════════════════════════ -->
+<section class="section download-section" id="download" aria-labelledby="download-title">
+  <div class="container">
+    <div class="download-card reveal">
+      <div>
+        <span class="badge badge-gold" style="margin-bottom:16px">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Free to Use
+        </span>
+        <h2 class="display-md" id="download-title" style="margin-bottom:12px">Download SVPassman</h2>
+        <p style="color:var(--text-2);max-width:440px;line-height:1.75">Available for macOS, Windows, and Linux. No account required. No email. Just download and go.</p>
+
+        <div class="download-platforms">
+          <a href="https://github.com/swavan/SVPassman/releases" class="platform-btn" target="_blank" rel="noopener" aria-label="Download for macOS">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            macOS
+          </a>
+          <a href="https://github.com/swavan/SVPassman/releases" class="platform-btn" target="_blank" rel="noopener" aria-label="Download for Windows">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+            Windows
+          </a>
+          <a href="https://github.com/swavan/SVPassman/releases" class="platform-btn" target="_blank" rel="noopener" aria-label="Download for Linux">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.504 0c-.155 0-.315.008-.48.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489a.424.424 0 0 0 .11.249c.486.485 3.093.545 4.947.492l1.555-.06h1.62l1.556.06c1.854.053 4.46-.007 4.947-.492a.424.424 0 0 0 .11-.249c.123-.805-.009-1.657-.287-2.489-.589-1.771-1.831-3.47-2.716-4.521-.75-1.067-.974-1.928-1.05-3.02-.065-1.491 1.056-5.965-3.17-6.298a6.2 6.2 0 0 0-.48-.021zm3.93 9.039c-.167.177-.374.316-.648.316s-.481-.14-.648-.316c-.168-.177-.252-.414-.252-.682 0-.269.084-.506.252-.682.167-.177.374-.317.648-.317s.481.14.648.317c.168.176.252.413.252.682 0 .268-.084.505-.252.682zm-7.86 0c-.167.177-.374.316-.648.316s-.481-.14-.648-.316c-.168-.177-.252-.414-.252-.682 0-.269.084-.506.252-.682.167-.177.374-.317.648-.317s.481.14.648.317c.168.176.252.413.252.682 0 .268-.084.505-.252.682z"/></svg>
+            Linux
+          </a>
+        </div>
+
+        <p class="download-version">Latest release: <strong>v0.1.1</strong> &nbsp;·&nbsp; <a href="https://github.com/swavan/SVPassman/releases" target="_blank" rel="noopener">View all releases →</a></p>
+      </div>
+
+      <div class="text-center" style="flex-shrink:0" aria-hidden="true">
+        <div style="width:160px;height:160px;margin:0 auto;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:center;padding:20px">
+          <img src="assets/icon.png" alt="SVPassman" style="width:120px;height:120px;object-fit:contain;border-radius:16px"/>
+        </div>
+        <p style="margin-top:16px;font-size:0.8rem;color:var(--text-3);font-family:var(--font-mono)">Signed &amp; notarized</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ══ FOOTER ═══════════════════════════════════════════════════ -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo" aria-label="SVPassman home">
+          <div class="logo-mark" aria-hidden="true"><img src="assets/icon.png" alt="SVPassman icon"/></div>
+          SVPassman
+        </a>
+        <p class="footer-tagline">A local-first, zero-knowledge password manager built with Rust and Tauri. Your secrets stay on your machine.</p>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Product</p>
+        <nav class="footer-links" aria-label="Product links">
+          <a href="https://github.com/swavan/SVPassman/releases" class="footer-link" target="_blank" rel="noopener">Download</a>
+          <a href="docs.html" class="footer-link">Documentation</a>
+          <a href="https://github.com/swavan/SVPassman/issues" class="footer-link" target="_blank" rel="noopener">Report a Bug</a>
+        </nav>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Legal</p>
+        <nav class="footer-links" aria-label="Legal links">
+          <a href="privacy.html" class="footer-link">Privacy Policy</a>
+          <a href="terms.html" class="footer-link">Terms &amp; Conditions</a>
+        </nav>
+      </div>
+      </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 SVPassman · SwaVan. All rights reserved.</span>
+      <span>Built with Rust 🦀 &amp; Tauri</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
