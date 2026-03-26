@@ -21,3 +21,4 @@ Cargo.lock
 #.idea/
 *.env
 do_not_use
+.DS_Store
